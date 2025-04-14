@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8"> <!-- 문서를 번역할때 사용하는 인코딩 방식
+                                한글은 euckr과 UTF-8방식을 사용한다.
+                                euckr은 한국어버전 운영체제에서만 사용한다. 한국어 전용
+                                UTF-8은 전세계적으로 사용할 수 있는 한국어 인코딩 방식이다.
+                                그래서 요즘은 거의 UTF-8로 인코딩을 설정한다. <-- 꼭 알고있기 매우중요 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>오늘의 메뉴</h1>
+    <form action="" method="post">
+        <input type="button" value="버튼1" onclick="event1()">
+        <input type="button" value="버튼2" id="btn2">
+        <input type="button" value="버튼3" id="btn3">
+        <input type="text" id="info">
+        <span id="info2">* 즐거운 시간 되세요</span>
+    </form>
+</body>
+</html>
+<!-- js에서 html tag 선택하여 동적데이터 컨트롤 -->
+ <!-- 시나리오 1 : 버튼을1 클릭하면 id가 info2로 지정된 tag의 text를 읽어와서 
+                  id가 info인 tag의 값(데이터)을 변경한다 -->
+<!-- tag가 이벤트를 발생하는 방법 3가지 -->
+<!-- 1.tag에서 직접 함수를 입력하는 방법 버튼1에 적용시켜 본다. -->
+ <script>
+    var m = ["a","b","c"]
+    function event1(){ // 버튼1이벤트 발생시 버튼1 출력창 실행
+        //alert('버튼1');
+        //  버튼을1 클릭하면 id가 info2로 지정된 tag의 text를 읽어와서 
+        var a = document.getElementById("info2").innerHTML; // <---가져오는값 value안됨, innerHTML로 가져오니 가져와짐
+        //  alert(a);
+        //  id가 info인 tag의 값(데이터) -> 변경
+        // document.getElementById('info').value= a;
+        // 응용 : 배열에 정의된 문든 문자열을 출력하시오
+        // var tex="";
+        // for(var a=0; a<m.length; a++){
+        //     tex = tex+m[a];
+        // }
+        var b = document.getElementById('info').value
+        b.value = a
+
+
+
+
+
+
+    }
+    function abc(){
+        alert('abc함수');
+    }
+    // 2번째 방법 리스너에 등록하는 방법 (2번째 방법을 많이 사용함)
+    window.onload = function(){ // html문서가 로딩될 때 onload라는 메서드가 자동으로 실행 됨
+        document.getElementById('btn2').addEventListener('click', () => { // () : 매개변수  / => : 람다식 함수명 없이 함수를 실행
+            alert("버튼2를 클릭하셨습니다.")
+            event1()
+        })
+        // 람다식(java, python도 있음)은 익명함수라고 이해한다. 함수 이름이 없다. ()   =>  {  } 
+        //                                                              매개변수   함수구현
+        document.querySelector('#btn3').addEventListener('click', abc) // abc() 소괄호 넣을시 자동호출
+                                                        //         ↑ abc 는 콜백함수 : 메소드가 call되고 그다음에 call될때 사용되는 함수
+    }
+    // 3번째 방법 jquery를 이용해서 등록하는 방법 (이론이 있다는것만 소개) -- 검색시 (jquery이벤트 문법 검색)
+ </script>
+ <!--   오늘의 실무 1,2,3번은 꼭 복습하기
+        1. html tag를 js가 선택해서 동적 데이터 제어
+        2. js에서 html tag를 선택하는 법
+        3. html tag의 이벤트를 등록하는 법 3가지
+        4. 람다식
+        5. 콜백 함수
+ -->
