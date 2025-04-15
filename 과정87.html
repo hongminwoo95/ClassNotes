@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table{
+        width:400px;
+        border: 1px solid;
+    }
+    tr, th {
+        border: 1px solid;
+        text-align: center;
+    }
+    #abcd{
+        width:400px;
+    }
+    #yyy{
+        background-color: yellow;
+    }
+</style>
+<body>
+    <h2>휴먼 검색어 포털 시스템</h2>
+    <span>문제 1 <br>검색어를 입력하세요 [지사사항 있음] </span>
+    <input type="text" id="text1">
+    <input type="button" value="검색" id="btn"><br>
+    <span>검색어 리스트</span><br>
+    <table id="table">
+        <tr>
+            <td width=100px>1</td>
+            <td>검색어</td>
+            <td><input type="button" value="삭제" id="delete"></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td align="left">
+                <input type="checkbox" id="allbox"> 모두 선택
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <hr>
+    <span> 문제 2</span><br>
+    <span> 검색어를 입력하고 검색 버튼을 누르면 검색어를 찾아서 배경을 노란색으로 변경하시오. </span><br><br>
+    <div id="abcd">
+        <span id="abc">
+            한화 타선은 장단 17안타를 몰아쳐 키움 마운드를 뒤흔들었다. 채은성(5타수 3안타 1타점)과 에스테반 플로리얼(5타수 3안타 1득점), 김태연(5타수 4안타 2득점)이 안타 3개씩을 쳤고, 이도윤은 3타수 1안타 3타점으로 거들었다.
+
+            경기 초반 부터 흔들린 키움 선발 조영건은 불안한 투구 내용을 남기는 등 1⅓이닝 2피안타 3사사구 2실점을 기록, 시즌 첫 패전을 당했다.
+        </span>
+        <br>
+        찾을 문자열 <input type="text" id="sword"> <input type="button" value="검색" id="button">
+</body>
+</html>
+    <script>
+        document.getElementById('btn').addEventListener('click',() => { // 검색버튼을 누르면 / 검색버튼을 누를시 클릭이벤트 발생
+            const table = document.getElementById('table'); // #table을 table변수에 대입 
+            const text = document.getElementById('text1');
+            const tableRow = table.insertRow(); // table변수 새로운 행을 tableRow에 대입
+            const Cell1 = tableRow.insertCell(0); // table 새행(row)에 0번인덱스 cell추가
+            const Cell2 = tableRow.insertCell(1);
+            const Cell3 = tableRow.insertCell(2);
+            if(text.value==""){
+                alert('검색어를 입력해주세요')
+                return
+            }
+            for (var i=1; i<table.rows.length; i++){ // 0번인덱스 cell에 table 행 길이만큼
+                Cell1.innerHTML = i+1; // 0번인덱스 cell에 i-1값 대입
+            }
+            Cell2.innerHTML = text.value; // 1번인덱스 cell에 text.value값 대입
+            Cell3.innerHTML = '<input type="checkbox" class="box1" id="box1">' // 2번인덱스 cell에 체크박스타입 대입
+            text.value = ''; // value 초기화
+        })
+        document.getElementById('allbox').addEventListener('click',() => { // 모두선택을 클릭시 클릭이벤트발생
+            const allbox = document.getElementById('allbox')
+            const checkbox = document.getElementsByClassName('box1'); // .box1배열을 checkbox변수에 대입
+            const table = document.getElementById('table'); // #table을 table변수에 대입
+            if(allbox.checked==true){
+                for (var i=1; i <table.rows.length; i++){ // 테이블의 행 길이만큼
+                    box = table.rows[i].cells[2].firstChild; // table i행 2번인덱스 cell의 첫번째 자식노드 리턴
+                    box.checked = true; // box체크 = true값 대입
+                }
+            }else{
+                for (var i=1; i <table.rows.length; i++){ // 테이블의 행 길이만큼
+                    box = table.rows[i].cells[2].firstChild; // table i행 2번인덱스 cell의 첫번째 자식노드 리턴
+                    box.checked = false; // box체크 = false값 대입
+                }
+            }
+        })
+        document.getElementById('delete').addEventListener('click',() => { // 삭제버튼 클릭시
+            const checkbox = document.getElementById('box1'); // #box1을 checkbox에 대입
+            const table = document.getElementById('table'); // #table을 table변수에 대입
+            const allbox = document.getElementById('allbox');
+            for (var i=1; i < table.rows.length; i++){ // 테이블 행의 길이를 순회하면서
+                check = table.rows[i].cells[2].firstChild.checked; // table i번째 행 2번인덱스 cell의 첫번째 자식노드를 체크
+                if (check){ // 해당체크박스가 true일때
+                    table.deleteRow(i); // 행삭제
+                    i--;
+                    allbox.checked = false;
+                }
+            }
+        })
+        document.getElementById('text1').addEventListener('change', () => { // 중복검색 검사(경고창),text초기화
+            const tableQ = document.getElementById('table'); // #table table변수에 대입
+            const textQ = document.getElementById('text1') // #text1 text1변수에 대입 (검색text)
+            for (var i=1; i<table.rows.length; i++){ // 테이블 행의 길이만큼
+                textW = table.rows[i].cells[1].innerText // i행의 1번인덱스 셀의 text를 textW에 대입
+                if(textQ.value==textW){ // 비교하여 같을시
+                    alert('이미 검색한 결과입니다') // 팝업(경고)창 띄워주고
+                    textQ.value = ''; // textQ value값 초기화
+                    return
+                }
+            }
+        })
+        document.getElementById('button').addEventListener('click',() => { //2번문제 검색을 클릭할시
+            console.log('Test11')
+            const text2 = document.getElementById('sword'); // #sword를 text2변수에 대입 (찾을문자열 입력)
+            const text3 = document.getElementById('abc'); // #abc Text를 text3변수에 대입 (작성된글)
+            if(text3.innerText.includes(text2.value)){ // text3문자열에 text2의 value값이 같다면
+                console.log('Test22');
+                const nextText = "<yellow id='yyy'>"+text2.value+"</yellow>" // text2의 value값에 속성부여후 nextText에 대입
+                const csstext = text3.innerText.replaceAll(text2.value,nextText); // text3.innerText에 text2 value과 동일한 값을 nextText값으로 변경 csstext에 대입
+                // text3.innerText = 글자만 수정하여 변수요소를 저장하지 않음 text3.innerHTML은 변수요소를 저장하여 요소기록이남음
+                text3.innerHTML = csstext; // text값을 text3 HTML에 대입
+            }
+        })
+        
+    </script>
