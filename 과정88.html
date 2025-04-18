@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        margin: 0px;
+        padding: 0px;
+    }
+    #pp{
+        position: absolute;
+        left: 110px;
+        top: 20px;
+    }
+    #one{ 
+        background-color: rgb(119, 181, 238);
+        text-align: center;
+        padding: 20px;
+        color: white;
+        font-size: 20px;
+        width: 900px;        
+    }
+    #two{        
+        position: absolute;
+        left: 300px;
+        top: 20px;
+        background-color: rgb(119, 181, 238);
+    }
+
+    .tr1{
+        background-color: rgb(119, 181, 238);
+        border: 10px solid;
+        border-color: white;
+        text-align: center;
+        color: white;
+    }
+    #td1{
+        width: 70px;
+    }
+    .td2{
+        width: 350px;
+    }
+    .del{
+        background-color: white;
+    }
+    #div2{
+        position: absolute;
+        left: 450px;
+        top: 85px;
+    }
+    #table2 ,tr , td{
+        border: 1px solid;
+        border-color: white;
+    }
+    #table2td1{
+        background-color: rgb(119, 181, 238);
+    }
+    #a{
+        text-align: center;
+        width: 80px;
+        color: white;
+    }
+    .aa{
+        width: 110px;
+        text-align: center;
+        color: white;
+    }
+    .table2td2{
+        background-color: rgb(175, 209, 216);
+    }
+    #b{
+        width: 455px;
+    }
+    #Lid{
+        
+        text-align: center;
+        width: 450px;
+    }
+    </style>
+    <body>
+        <div id="pp">
+            <div id="one">
+                <span>휴먼 전공 용어 공부</span>
+            </div>
+            <br>
+            <div id="by1">
+                <table id="table1">
+                    <tr class="tr1">
+                        <td id="td1">단어</td>
+                        <td class="td2" colspan="2"><input type="text" id="word"></td>                       
+                    </tr>
+                    <tr class="tr1">
+                        <td>구분</td>
+                        <td colspan="2">
+                            <form action="">
+                                <select name="td22" id="division">
+                                    <option>db</option>
+                                    <option>java</option>
+                                    <option>html</option>
+                                    <option>css</option>
+                                    <option>js</option>
+                                </select>
+                            </form>
+                        </td>                        
+                    </tr>
+                    <tr class="tr1">
+                        <td>설명</td>
+                        <td colspan="2" rowspan="2"><input type="text" id="explanation"></td>                        
+                    </tr>
+                    <tr class="tr1">
+                        <td rowspan="2" class="del">삭제</td>
+                        <td colspan="2" class="del">d</td>
+                    </tr>
+                    <tr class="tr1">
+                        <td class="del">dddd</td>
+                        <td><input type="button" id="Jbtn" value="저장"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="div2">
+                <table id="table2">
+                    <tr>
+                        <tr id="table2td1">
+                            <td><input type="button" value="전체선택" id="allchecked"></td>
+                            <td id="a">순번</td>
+                            <td class="aa">단어</td>
+                            <td class="aa">구분</td>
+                            <td class="aa">설명</td>
+                        </tr>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <tr id="table2td1">
+                            <td><input type="button" value="삭제" id="deletebtn"></td>
+                            <td id="Lid"></td>                        
+                        </tr> 
+                        
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </body>
+    </html>
+    <script>
+       
+        function number(){ //★ 순번 재정렬 (재사용(행 인덱스로 번호계속하여 수정)
+            for (let i=2; i<table2.rows.length; i++){ 
+                const a = table2.rows[i].cells[1] // i행의 1번셀
+                const b = table2.rows[i].rowIndex-1 // i행의 인덱스번호
+                if(a!=null){ // 행의 셀이 비어있지 않다면
+                    a.innerHTML = b // 행의 인덱스번호 대입
+                }
+            }
+        }
+        document.getElementById('Jbtn').addEventListener('click', ()=>{ // ★ 저장하기
+            const word = document.getElementById('word'); // 단어
+            const division = document.getElementById('division'); // 구분
+            const explanation = document.getElementById('explanation'); // 설명
+            const table2 = document.getElementById('table2'); // 테이블           
+            const tableRow = table2.insertRow(2);
+            const tableCell0 = tableRow.insertCell(0)
+            const tableCell1 = tableRow.insertCell(1)
+            const tableCell2 = tableRow.insertCell(2)
+            const tableCell3 = tableRow.insertCell(3)
+            const tableCell4 = tableRow.insertCell(4)
+            tableCell0.innerHTML = '<td><input type="checkbox" class="checkbox" id="checkbox"></td>'
+            for (let i=0; i<table2.rows.length; i++){  
+                tableCell1.innerHTML = i-1
+            }
+            tableCell2.innerHTML = word.value;
+            tableCell3.innerHTML = division.value;
+            // ★ 5글자만 배열사용하여 추출하기
+            let textB = []; // 설명란 5글자 저장할 배열
+            for (let i=0; i<5; i++){ // 5번순회
+                textB[i] =  explanation.value.charAt(i) // 문자로 끊어서 5개를 배열에저장
+            }
+            for (let i=0; i<textB.length; i++){ // 배열길이만큼 순회
+                tableCell4.innerText +=  textB[i] // 배열5개 value값을 4번cell에 저장
+            }         
+            number() //★ 순번 재정렬 함수 저장후 순번 재정렬
+            word.value = '';
+            explanation.value = '';
+            
+       })
+       document.getElementById('deletebtn').addEventListener('click', () => { // ★ 삭제하기
+            const table2 = document.getElementById('table2'); // 테이블
+            for (let i=2; i<table2.rows.length; i++){
+                const checked = table2.rows[i].cells[0].firstChild.checked
+                if(checked){
+                    table2.deleteRow(i);
+                    i--;
+                }
+            }
+            number() //★ 순번 재정렬 함수
+       })
+      document.getElementById('allchecked').addEventListener('click',() =>{ // ★ 전체선택
+          const table2 = document.getElementById('table2'); // 테이블
+          for (let i=2; i<table2.rows.length; i++){
+            const checked = table2.rows[i].cells[0].childNodes[0].checked 
+            const checke = table2.rows[i].cells[0].childNodes[0] 
+            if (!checked){
+                checke.checked = true
+            }else{
+                checke.checked = false
+            }
+            
+          }
+      })
+        // ★ 전체선택 forEach문 사용 해본 코드 앞으론 forEach주로 사용하기
+    //   document.getElementById('allchecked').addEventListener('click',() =>{ 
+    //         const checkbox = document.querySelectorAll('.checkbox')
+    //         const checkbox2 = document.querySelectorAll('.checkbox').checked          
+    //         checkbox.forEach((홍민우)=>{
+    //             홍민우.checked = true;
+    //         })
+    //    })
+
+    </script>
