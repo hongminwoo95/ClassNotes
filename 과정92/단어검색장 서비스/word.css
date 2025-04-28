@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#a{
+
+    background-color: rgb(199, 241, 241);
+    text-align: center;
+    width: 500px;
+    position: absolute;
+    left: 250px;
+}
+#b{
+    background-color: rgb(199, 241, 241);
+    text-align: center;
+    width: 500px;
+    position: absolute;
+    left: 250px;
+    top: 50px;
+}
+#c{
+    background-color: rgb(199, 241, 241);
+    text-align: center;
+    width: 500px;
+    position: absolute;
+    left: 250px;
+    top: 100px;
+    height: 700px;
+}
