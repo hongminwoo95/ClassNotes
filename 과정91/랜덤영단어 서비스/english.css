@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.tableTd{
+        width: 100px;
+        border: 1px solid;
+        border-color: black;
+        background-color: rgb(203, 236, 236);
+    }
+    #div1{
+        position: absolute;
+        top: 10px;
+        left: 160px;  
+        background-color: rgb(136, 228, 228);
+        text-align: center;
+        width: 300px;
+    }
+    #div2{
+        position: absolute;
+        top: 40px;
+        left: 150px;
+    }
+    #div3{
+        position: absolute;
+        top: 200px;
+        left: 5px;
+    }
